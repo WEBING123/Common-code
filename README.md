@@ -1,39 +1,58 @@
-# Common-code
-分享前端开发常用代码片段-值得收藏
-
 ## 一、预加载图像
 
-如果你的网页中需要使用大量初始不可见的（例如，悬停的）图像，那么可以预加载这些图像。
-
-![预加载图像][1]
+```javascript
+$.preloadImages = function () {
+    for (var i = 0; i < arguments.length; i++) {
+        $('img').attr('src',arguments[i]);
+    }
+}
+$.preloadImages('img/hover-on.png','img/hover-off.png');
+```
 
 ## 二、检查图像是否加载
 
-有时为了继续脚本，你可能需要检查图像是否全部加载完毕。
-
-![检查图像是否加载][2]
-
-你也可以使用 ID 或 CLASS 替换 <img>标签来检查某个特定的图像是否被加载。
+```javascript
+$('img').load(function () {
+    console.log("image load successful");
+});
+```
 
 ## 三、自动修复破坏的图像
 
-逐个替换已经破坏的图像链接是非常痛苦的。不过，下面这段简单的代码可以帮助你。
-
-![自动修复破坏的图像][3]
+```javascript
+$('img').on('error', function () {
+    if (!$(this).hasClass('broken-image')) {
+        $(this).prop('src','https://cdn.segmentfault.com/v-5cc2cd8e/global/img/logo-b.svg').addClass('broken-image');
+    }
+});
+```
 
 ## 四、悬停切换
 
-当用户鼠标悬停在可点击的元素上时，可添加类到元素中，反之则移除类。
+```javascript
+// addClass、removeClass
+$(selector).hover(function () {
+    $(selector).addClass(className);
+}, function () {
+    $(selector).removeClass(className);
+});
 
-![悬停切换][4]
-
-只需要添加必要的 CSS 即可。更简单的方法是使用 **toggleClass()** 方法。
-
-![悬停切换][5]
+// toggleClass
+$(selector).hover(function () {
+    $(selector).toggleClass(className);
+});
+```
 
 ## 五、淡入淡出/显示隐藏
 
-![淡入淡出/显示隐藏][6]
+```javascript
+$("img").click(function (e) { 
+    // 隐藏
+    $(this).fadeToggle('slow');
+    // 显示
+    $(this).slideToggle('slow');
+});
+```
 
 ## 六、鼠标滚轮
 
@@ -692,42 +711,24 @@ function time(y,m){
 time(2018,5);
 ```
 
-## 三十、AJAX调用错误处理
 
-当 Ajax 调用返回 404 或 500 错误时，就执行错误处理程序。如果没有定义处理程序，其他的 jQuery 代码或会就此罢工。定义一个全局的 Ajax 错误处理程序
+本文在GitHub的地址 [Common-code][11]
 
-![AJAX调用错误处理][7]
+[阅读更多][12]
 
-## 三十一、链式插件调用
-
-jQuery 允许“链式”插件的方法调用，以减轻反复查询 DOM 并创建多个 jQuery 对象的过程。
-
-![链式插件调用][8]
-
-通过使用链式，可以改善
-
-![链式插件调用][9]
-
-还有一种方法是在（**前缀$**）变量中高速缓存元素
-
-![链式插件调用][10]
-
-链式和高速缓存的方法都是 jQuery 中可以让代码变得更短和更快的最佳做法。
-
-[阅读更多][11]
-
-参考文章 [『总结』web前端开发常用代码整理][12]
+参考文章 [『总结』web前端开发常用代码整理][13]
 
 
-  [1]: https://segmentfault.com/img/bV9GOl?w=630&h=179
-  [2]: https://segmentfault.com/img/bV9GOp?w=461&h=77
-  [3]: https://segmentfault.com/img/bV9GOJ?w=787&h=127
-  [4]: https://segmentfault.com/img/bV9LXp?w=370&h=129
-  [5]: https://segmentfault.com/img/bV9MaN?w=367&h=78
-  [6]: https://segmentfault.com/img/bV9M2B?w=380&h=201
-  [7]: https://segmentfault.com/img/bV9M44?w=643&h=78
-  [8]: https://segmentfault.com/img/bV9M5r?w=271&h=77
-  [9]: https://segmentfault.com/img/bV9M5E?w=159&h=102
-  [10]: https://segmentfault.com/img/bV9M50?w=259&h=98
-  [11]: https://segmentfault.com/u/webing123
-  [12]: https://segmentfault.com/a/1190000011087315#articleHeader21
+  [1]: /img/bV9GOl
+  [2]: /img/bV9GOp
+  [3]: /img/bV9GOJ
+  [4]: /img/bV9LXp
+  [5]: /img/bV9MaN
+  [6]: /img/bV9M2B
+  [7]: /img/bV9M44
+  [8]: /img/bV9M5r
+  [9]: /img/bV9M5E
+  [10]: /img/bV9M50
+  [11]: https://github.com/WEBING123/Common-code
+  [12]: https://segmentfault.com/u/webing123
+  [13]: https://segmentfault.com/a/1190000011087315#articleHeader21
